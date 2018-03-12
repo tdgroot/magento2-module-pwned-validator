@@ -82,17 +82,15 @@ class Validator implements ValidatorInterface
             return $this->serializer->unserialize($cacheEntry);
         }
 
-        $hashes = [];
-
         $this->httpClient->get(self::PWNED_BASE_URL . '/range/' . $prefix);
-
         if ($this->httpClient->getStatus() !== 200) {
-            return $hashes;
+            return [];
         }
 
         $body = $this->httpClient->getBody();
         $results = explode("\n", $body);
 
+        $hashes = [];
         foreach ($results as $value) {
             list($hash, $count) = explode(':', $value);
             $hashes[$hash] = (int)$count;
