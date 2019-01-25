@@ -2,8 +2,9 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Timpack\PwnedValidator\Api\ValidatorInterface" type="Timpack\PwnedValidator\Model\Validator"/>
-    <preference for="Magento\Customer\Model\AccountManagement"
-                type="Timpack\PwnedValidator\Rewrite\Model\AccountManagement"/>
+    <type name="Magento\Customer\Api\AccountManagementInterface">
+        <plugin name="timpack_pwnedvalidator_magento_customer_api_accountmanagementinterface" type="Timpack\PwnedValidator\Plugin\AccountManagementPlugin"/>
+    </type>
     <type name="Timpack\PwnedValidator\Api\ValidatorInterface">
         <arguments>
             <argument name="httpClient" xsi:type="object">Magento\Framework\HTTP\Client\Curl</argument>
